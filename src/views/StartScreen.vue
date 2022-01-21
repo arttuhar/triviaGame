@@ -1,13 +1,31 @@
 <script setup>
     import { ref } from 'vue';
+    import { useStore } from 'vuex';
+    import { useRouter } from 'vue-router';
+
+    const store = useStore();
+    const router = useRouter();
+
+    const username = ref("");
     const toggleOptions = ref(false);
+
+    // work in progress, just a demo
+    const onStartClick = () => {
+        store.commit("setUsername", username.value);
+        router.push("/questions");
+    }
 </script>
 
 <template>
     <div class="startScreen">
         <div class="startInputs">
-            <input type="text" class="startInput" placeholder="Player name">
-            <button class="startButton">Start</button>
+            <input 
+                type="text"
+                class="startInput"
+                placeholder="Player name"
+                v-model="username"
+            >
+            <button @click="onStartClick" class="startButton">Start</button>
             <button @click="toggleOptions = !toggleOptions" class="optionsButton">Options</button>
             <div v-show="toggleOptions">
                 <select class="options"></select>
