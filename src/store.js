@@ -11,30 +11,27 @@ export default createStore({
         error: ''
     },
     mutations: {
-        setUsername: (state, payload) => {
-            state.username = payload
+        setUsername: (state, username) => {
+            state.username = username
         },
-        setDifficulty: (state, payload) => {
-            state.difficulty = payload
+        setDifficulty: (state, difficulty) => {
+            state.difficulty = difficulty
         },
-        setCategory: (state, payload) => {
-            state.category = payload
+        setCategory: (state, category) => {
+            state.category = category
         },
-        setAmount: (state, payload) => {
-            state.amount = payload
+        setAmount: (state, amount) => {
+            state.amount = amount
         },
-        setQuestions: (state, payload) => {
-            state.questions = payload
+        setQuestions: (state, questions) => {
+            state.questions = questions
         },
-        setScore: (state, payload) => {
-            state.score = payload
+        setScore: (state, score) => {
+            state.score = score
         },
-        setError: (state, payload) => {
-            state.error = payload
+        setError: (state, error) => {
+            state.error = error
         }
-    },
-    getters: {
-
     },
     actions: {
 
