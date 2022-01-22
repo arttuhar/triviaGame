@@ -8,12 +8,14 @@
 
     const username = ref("");
     const amount = ref(1);
+    const difficulty = ref('');
     const toggleOptions = ref(false);
 
     // work in progress, just a demo
     const onStartClick = () => {
         store.commit("setUsername", username.value);
         store.commit('setAmount', amount.value);
+        store.commit('setDifficulty', difficulty.value);
         router.push("/questions");
     }
 </script>
@@ -30,13 +32,17 @@
             <button @click="onStartClick" class="startButton">Start</button>
             <button @click="toggleOptions = !toggleOptions" class="optionsButton">Options</button>
             <div v-show="toggleOptions" class="options">
-                <select class="option"></select>
+                <select class="option" v-model="difficulty">
+                    <option disabled value="">Difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
                 <input type="number" class="option" v-model="amount" min="1" max="50">
                 <div>
                     <p class="invalidValue" v-show="amount < 1">Select min 1 question</p>
-                    <p class="invalidValue" v-show="amount > 50 ">Select max 50 questions</p>
+                    <p class="invalidValue" v-show="amount > 50">Select max 50 questions</p>
                 </div>
-                
                 <select class="option"></select>
             </div>
         </div>
@@ -105,7 +111,7 @@
         margin: 10px;
         padding-left: 5px;
     }
-    .options:focus {
+    .option:focus {
         outline: none;
     }
     .invalidValue {
