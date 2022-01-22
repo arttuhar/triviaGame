@@ -4,7 +4,7 @@ import { apiFetchQuestions } from "./api/questions";
 export default createStore({
 	state: {
 		username: "",
-		difficulty: "easy",
+		difficulty: "",
 		category: "9",
 		amount: 1,
 		questions: [],
