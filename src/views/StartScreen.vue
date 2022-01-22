@@ -7,11 +7,13 @@
     const router = useRouter();
 
     const username = ref("");
+    const amount = ref(1);
     const toggleOptions = ref(false);
 
     // work in progress, just a demo
     const onStartClick = () => {
         store.commit("setUsername", username.value);
+        store.commit('setAmount', amount.value);
         router.push("/questions");
     }
 </script>
@@ -27,10 +29,15 @@
             >
             <button @click="onStartClick" class="startButton">Start</button>
             <button @click="toggleOptions = !toggleOptions" class="optionsButton">Options</button>
-            <div v-show="toggleOptions">
-                <select class="options"></select>
-                <select class="options"></select>
-                <select class="options"></select>
+            <div v-show="toggleOptions" class="options">
+                <select class="option"></select>
+                <input type="number" class="option" v-model="amount" min="1" max="50">
+                <div>
+                    <p class="invalidValue" v-show="amount < 1">Select min 1 question</p>
+                    <p class="invalidValue" v-show="amount > 50 ">Select max 50 questions</p>
+                </div>
+                
+                <select class="option"></select>
             </div>
         </div>
     </div>
@@ -86,12 +93,24 @@
         background-color: transparent;
         cursor: pointer;
     }
-    .options {
-        width: 80%;
+    .options{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .option {
+        width: 60%;
         height: 25px;
         margin: 10px;
+        padding-left: 5px;
     }
     .options:focus {
         outline: none;
+    }
+    .invalidValue {
+        color: red;
+        font-size: 13px;
+        text-align: center;
     }
 </style>
