@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { apiFetchCategories } from "./api/categories";
 import { apiFetchQuestions } from "./api/questions";
 
 export default createStore({
@@ -6,6 +7,7 @@ export default createStore({
 		username: "",
 		difficulty: "",
 		category: "9",
+		categories: [],
 		amount: 1,
 		questions: [],
 		score: "",
@@ -20,6 +22,9 @@ export default createStore({
 		},
 		setCategory: (state, category) => {
 			state.category = category;
+		},
+		setCategories: (state, categories) => {
+			state.categories = categories;
 		},
 		setAmount: (state, amount) => {
 			state.amount = amount;
@@ -45,6 +50,14 @@ export default createStore({
 				return error;
 			}
 			commit("setQuestions", questions.results);
+			return null;
+		},
+		async fetchCategories({ commit, state }) {
+			const [error, categories] = await apiFetchCategories(state.categories);
+			if (error !== null) {
+				return error;
+			}
+			commit("setCategories", categories.trivia_categories);
 			return null;
 		},
 	},
