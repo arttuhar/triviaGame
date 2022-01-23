@@ -6,7 +6,7 @@ export default createStore({
 	state: {
 		username: "",
 		difficulty: "",
-		category: "9",
+		category: "",
 		categories: [],
 		amount: 1,
 		questions: [],

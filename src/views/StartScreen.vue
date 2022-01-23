@@ -9,6 +9,7 @@
     const username = ref("");
     const amount = ref(1);
     const difficulty = ref('');
+    const category = ref('');
     const toggleOptions = ref(false);
 
     // upon pressing the 'Start' button, update the store states and switch to the QuestionScreen route
@@ -16,6 +17,7 @@
         store.commit("setUsername", username.value);
         store.commit('setAmount', amount.value);
         store.commit('setDifficulty', difficulty.value);
+        store.commit('setCategory', category.value);
         router.push("/questions");
     }
 
@@ -49,7 +51,10 @@
                     <p class="invalidValue" v-show="amount < 1">Select min 1 question</p>
                     <p class="invalidValue" v-show="amount > 50">Select max 50 questions</p>
                 </div>
-                <select class="option"></select>
+                <select v-model="category" class="option">
+                    <option disabled value="">Category</option>
+                    <option v-for="item in store.state.categories" :key="item.id" :value="item.id">{{item.name}}</option>
+                </select>
             </div>
         </div>
     </div>
