@@ -1,5 +1,6 @@
 import { CATEGORIES_URL } from ".";
 
+// fetch category names and their ids from the API
 export async function apiFetchCategories() {
 	try {
 		const response = await fetch(`${CATEGORIES_URL}`);

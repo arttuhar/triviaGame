@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import { useStore } from 'vuex';
     import { useRouter } from 'vue-router';
 
@@ -11,13 +11,19 @@
     const difficulty = ref('');
     const toggleOptions = ref(false);
 
-    // work in progress, just a demo
+    // upon pressing the 'Start' button, update the store states and switch to the QuestionScreen route
     const onStartClick = () => {
         store.commit("setUsername", username.value);
         store.commit('setAmount', amount.value);
         store.commit('setDifficulty', difficulty.value);
         router.push("/questions");
     }
+
+    // fetch the category data from the API when the component is mounted
+    onMounted(async () => {
+        store.dispatch("fetchCategories")
+    })
+
 </script>
 
 <template>
