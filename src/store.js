@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { apiFetchCategories } from "./api/categories";
 import { apiFetchQuestions } from "./api/questions";
+import { apiFetchUsers, apiAddNewUser, apiUpdateUserScore, apiDeleteUser } from "./api/user";
 
 export default createStore({
 	state: {
@@ -10,7 +11,9 @@ export default createStore({
 		categories: [],
 		amount: 1,
 		questions: [],
-		score: "",
+		score: 0,
+		userId: "",
+		users: [],
 		error: "",
 	},
 	mutations: {
@@ -35,9 +38,24 @@ export default createStore({
 		setScore: (state, score) => {
 			state.score = score;
 		},
+		setUserId: (state, id) => {
+			state.userId = id;
+		},
+		setUsers: (state, users) => {
+			state.users = users;
+		},
 		setError: (state, error) => {
 			state.error = error;
+		}
+	},
+	getters: {
+		findUserByUsername: (state, username) => {
+			return state.users.find(user => user.username === username)
 		},
+		findUserHighScore: (state, userId) => {
+			const user = state.users.find(user => user.id === userId)
+			return user.highScore;
+		}
 	},
 	actions: {
 		async fetchQuestions({ commit, state }) {
@@ -53,12 +71,43 @@ export default createStore({
 			return null;
 		},
 		async fetchCategories({ commit, state }) {
-			const [error, categories] = await apiFetchCategories(state.categories);
+			const [error, categories] = await apiFetchCategories();
 			if (error !== null) {
 				return error;
 			}
 			commit("setCategories", categories.trivia_categories);
 			return null;
 		},
+		async fetchUsers({ commit }) {
+			const [error, users] = await apiFetchUsers();
+			if (error !== null) {
+				return error;
+			}
+			commit("setUsers", users);
+			return null;
+		},
+		async addNewUser({ commit, state }) {
+			const [error, user] = await apiAddNewUser(state.username);
+			if (error !== null) {
+				return error;
+			}
+			commit("setUserId", user.id);
+			return null;
+
+		},
+		async updateUserScore({ commit, state }) {
+			const [error, user] = await apiUpdateUserScore(state.userId, state.score);
+			if (error !== null) {
+				return error;
+			}
+			return null;
+		},
+		async deleteUser({ commit}, userId) {
+			const [error, user] = await apiDeleteUser(userId);
+			if (error !== null) {
+				return error;
+			}
+			return null;
+		}
 	},
 });
