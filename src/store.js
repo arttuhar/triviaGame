@@ -1,7 +1,12 @@
 import { createStore } from "vuex";
 import { apiFetchCategories } from "./api/categories";
 import { apiFetchQuestions } from "./api/questions";
-import { apiFetchUsers, apiAddNewUser, apiUpdateUserScore, apiDeleteUser } from "./api/user";
+import {
+	apiFetchUsers,
+	apiAddNewUser,
+	apiUpdateUserScore,
+	apiDeleteUser,
+} from "./api/user";
 
 export default createStore({
 	state: {
@@ -11,6 +16,7 @@ export default createStore({
 		categories: [],
 		amount: 1,
 		questions: [],
+		currentQuestion: 0,
 		score: 0,
 		userId: "",
 		users: [],
@@ -46,16 +52,16 @@ export default createStore({
 		},
 		setError: (state, error) => {
 			state.error = error;
-		}
+		},
 	},
 	getters: {
 		findUserByUsername: (state, username) => {
-			return state.users.find(user => user.username === username)
+			return state.users.find(user => user.username === username);
 		},
 		findUserHighScore: (state, userId) => {
-			const user = state.users.find(user => user.id === userId)
+			const user = state.users.find(user => user.id === userId);
 			return user.highScore;
-		}
+		},
 	},
 	actions: {
 		async fetchQuestions({ commit, state }) {
@@ -93,7 +99,6 @@ export default createStore({
 			}
 			commit("setUserId", user.id);
 			return null;
-
 		},
 		async updateUserScore({ commit, state }) {
 			const [error, user] = await apiUpdateUserScore(state.userId, state.score);
@@ -102,12 +107,12 @@ export default createStore({
 			}
 			return null;
 		},
-		async deleteUser({ commit}, userId) {
+		async deleteUser({ commit }, userId) {
 			const [error, user] = await apiDeleteUser(userId);
 			if (error !== null) {
 				return error;
 			}
 			return null;
-		}
+		},
 	},
 });
