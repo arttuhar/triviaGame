@@ -13,13 +13,14 @@
     const toggleOptions = ref(false);
 
     // upon pressing the 'Start' button, update the store states and switch to the QuestionScreen route
-    const onStartClick = () => {
+    const onStartClick = async () => {
         store.commit("setUsername", username.value);
         store.commit('setAmount', amount.value);
         store.commit('setDifficulty', difficulty.value);
         store.commit('setCategory', category.value);
         // TODO - check if username exists and proceed accordingly
         //store.dispatch('addNewUser')
+        await store.dispatch("fetchQuestions");
         router.push("/questions");
     }
 
