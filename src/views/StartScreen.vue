@@ -18,12 +18,15 @@
         store.commit('setAmount', amount.value);
         store.commit('setDifficulty', difficulty.value);
         store.commit('setCategory', category.value);
+        // TODO - check if username exists and proceed accordingly
+        //store.dispatch('addNewUser')
         router.push("/questions");
     }
 
     // fetch the category data from the API when the component is mounted
     onMounted(async () => {
-        store.dispatch("fetchCategories")
+        await store.dispatch("fetchCategories")
+        await store.dispatch("fetchUsers")
     })
 
 </script>
