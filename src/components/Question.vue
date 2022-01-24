@@ -1,9 +1,18 @@
 <script setup>
-import { computed, onBeforeMount, onMounted } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 const optionsArray = [];
+
+// Shuffle answers
+const shuffleQuestions = () => {
+    for (let i = optionsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [optionsArray[i], optionsArray[j]] = [
+            optionsArray[j], optionsArray[i]];
+    }
+}
 
 const onAnswerClick = () => {
     console.log('clicked');
@@ -11,11 +20,9 @@ const onAnswerClick = () => {
 
 onBeforeMount(() => {
     const questions = computed(() => store.state.questions);
-    //questions.value.forEach(item => optionsArray.push(item.correct_answer))
     optionsArray.push(questions.value[store.state.currentQuestion].correct_answer);
-    //questions.value.forEach(item => optionsArray.push(...item.incorrect_answers))
     optionsArray.push(...questions.value[store.state.currentQuestion].incorrect_answers);
-
+    shuffleQuestions();
     console.log(optionsArray)
 })
 </script>
