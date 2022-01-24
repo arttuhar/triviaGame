@@ -41,6 +41,9 @@ export default createStore({
 		setQuestions: (state, questions) => {
 			state.questions = questions;
 		},
+		setCurrentQuestion: (state, currentQuestion) => {
+			state.currentQuestion = currentQuestion;
+		},
 		setScore: (state, score) => {
 			state.score = score;
 		},
