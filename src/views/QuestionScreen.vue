@@ -5,10 +5,6 @@ import Answers from '../components/Answers.vue';
 
 const store = useStore()
 
-onMounted(async () => {
-    store.dispatch("fetchQuestions")
-})
-
 const questions = computed(() => store.state.questions);
 
 </script>

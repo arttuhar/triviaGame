@@ -8,7 +8,6 @@ export async function apiFetchUsers() {
       throw new Error("Could not fetch users.");
     }
     const data = await response.json();
-    console.log(data)
     return [null, data];
   } catch (e) {
     return [e.message, []];

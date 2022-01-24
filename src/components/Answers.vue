@@ -3,12 +3,16 @@ import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
-
 const optionsArray = [];
 
-const answers = computed(() => store.state.questions.correct_answer);
-console.log(answers);
+onMounted(() => {
+    const questions = computed(() => store.state.questions)
+    questions.value.forEach(item => optionsArray.push(item.correct_answer))
+    questions.value.forEach(item => optionsArray.push(...item.incorrect_answers))
+    console.log(optionsArray)
+})
 
+// v-for="item in questionsObject" :key="item.correct_answer">{{ item.correct_answer }}
 </script>
 
 <template>
