@@ -1,7 +1,7 @@
 <script setup>
-
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import Answers from '../components/Answers.vue';
 
 const store = useStore()
 
@@ -9,7 +9,7 @@ onMounted(async () => {
     store.dispatch("fetchQuestions")
 })
 
-const questions = computed(() => store.state.questions)
+const questions = computed(() => store.state.questions);
 
 </script>
 
@@ -19,6 +19,7 @@ const questions = computed(() => store.state.questions)
 <ul>
     <li v-for="item in questions" :key="item.question">{{item.question}}</li>
 </ul>
+<Answers />
 
 </template>
 
