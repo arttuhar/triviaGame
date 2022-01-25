@@ -8,7 +8,6 @@ const currentQuestion = computed(() => store.state.currentQuestion);
 const optionsArray = reactive([]);
 
 const onAnswerClick = () => {
-    console.log('clicked');
     store.commit('setCurrentQuestion', store.state.currentQuestion + 1);
     updateAnswers();
 } 
@@ -23,6 +22,16 @@ const updateAnswers = () => {
     }
     optionsArray.push(questions.value[store.state.currentQuestion].correct_answer);
     optionsArray.push(...questions.value[store.state.currentQuestion].incorrect_answers)
+    shuffleQuestions();
+}
+
+// Shuffle answers
+const shuffleQuestions = () => {
+    for (let i = optionsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [optionsArray[i], optionsArray[j]] = [
+            optionsArray[j], optionsArray[i]];
+    }
 }
 </script>
 
