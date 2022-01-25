@@ -1,9 +1,29 @@
 <script setup>
-import { computed, onBeforeMount } from 'vue';
+import { computed, onBeforeMount, reactive } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
-const optionsArray = [];
+const questions = computed(() => store.state.questions);
+const currentQuestion = computed(() => store.state.currentQuestion);
+const optionsArray = reactive([]);
+
+const onAnswerClick = () => {
+    store.commit('setCurrentQuestion', store.state.currentQuestion + 1);
+    updateAnswers();
+} 
+
+onBeforeMount(() => {
+    updateAnswers();
+})
+
+const updateAnswers = () => {
+    while(optionsArray.length > 0) {
+        optionsArray.pop();
+    }
+    optionsArray.push(questions.value[store.state.currentQuestion].correct_answer);
+    optionsArray.push(...questions.value[store.state.currentQuestion].incorrect_answers)
+    shuffleQuestions();
+}
 
 // Shuffle answers
 const shuffleQuestions = () => {
@@ -13,18 +33,6 @@ const shuffleQuestions = () => {
             optionsArray[j], optionsArray[i]];
     }
 }
-
-const onAnswerClick = () => {
-    console.log('clicked');
-} 
-
-onBeforeMount(() => {
-    const questions = computed(() => store.state.questions);
-    optionsArray.push(questions.value[store.state.currentQuestion].correct_answer);
-    optionsArray.push(...questions.value[store.state.currentQuestion].incorrect_answers);
-    shuffleQuestions();
-    console.log(optionsArray)
-})
 </script>
 
 <template>
@@ -33,7 +41,7 @@ onBeforeMount(() => {
             <h3>{{store.state.questions[store.state.currentQuestion].question}}</h3>
         </div>
         <div class="answerContainer">
-            <div class="answerOptions" v-for="item in optionsArray" :key="item">
+            <div class="answerOptions" v-for="item in optionsArray" :key="currentQuestion + item">
                 <button @click="onAnswerClick">{{item}}</button>
             </div>
         </div>
