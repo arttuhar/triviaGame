@@ -1,16 +1,20 @@
 <script setup>
-import { useStore } from 'vuex';
 import Question from '../components/Question.vue';
-
-const store = useStore()
 
 </script>
 
 <template>
-<h1>Questions</h1>
-<Question />
+    <div class="questionScreen">
+        <Question />
+    </div>
 </template>
 
 <style scoped>
-
+    .questionScreen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #0077b6;
+    }
 </style>

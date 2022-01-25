@@ -14,13 +14,13 @@ export default createStore({
 		difficulty: "",
 		category: "",
 		categories: [],
-		amount: 1,
+		amount: 5,
 		questions: [],
-		currentQuestion: 0,
+		currentQuestionIndex: 0,
+		userAnswers: [],
 		score: 0,
 		userId: "",
 		users: [],
-		error: "",
 	},
 	mutations: {
 		setUsername: (state, username) => {
@@ -41,8 +41,14 @@ export default createStore({
 		setQuestions: (state, questions) => {
 			state.questions = questions;
 		},
-		setCurrentQuestion: (state, currentQuestion) => {
-			state.currentQuestion = currentQuestion;
+		setCurrentQuestionIndex: (state, currentQuestionIndex) => {
+			state.currentQuestionIndex = currentQuestionIndex;
+		},
+		setUserAnswers: (state, answer) => {
+			state.userAnswers.push(answer);
+		},
+		clearUserAnswers: state => {
+			state.userAnswers = [];
 		},
 		setScore: (state, score) => {
 			state.score = score;
@@ -53,16 +59,13 @@ export default createStore({
 		setUsers: (state, users) => {
 			state.users = users;
 		},
-		setError: (state, error) => {
-			state.error = error;
-		},
 	},
 	getters: {
-		findUserByUsername: (state, username) => {
-			return state.users.find(user => user.username === username);
+		findUserByUsername: state => {
+			return state.users.find(user => user.username === state.username);
 		},
-		findUserHighScore: (state, userId) => {
-			const user = state.users.find(user => user.id === userId);
+		findUserHighScore: state => {
+			const user = state.users.find(user => user.id === state.userId);
 			return user.highScore;
 		},
 	},

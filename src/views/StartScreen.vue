@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { useStore } from 'vuex';
     import { useRouter } from 'vue-router';
 
@@ -7,10 +7,12 @@
     const router = useRouter();
 
     const username = ref("");
-    const amount = ref(1);
+    const amount = ref(5);
     const difficulty = ref('');
     const category = ref('');
     const toggleOptions = ref(false);
+
+    const users = computed(() => store.state.users);
 
     // upon pressing the 'Start' button, update the store states and switch to the QuestionScreen route
     const onStartClick = async () => {
@@ -18,10 +20,15 @@
         store.commit('setAmount', amount.value);
         store.commit('setDifficulty', difficulty.value);
         store.commit('setCategory', category.value);
-        // TODO - check if username exists and proceed accordingly
-        //store.dispatch('addNewUser')
+        const user = store.getters.findUserByUsername;
+        if (!user) {
+            await store.dispatch('addNewUser');
+            await store.dispatch("fetchUsers");
+        } else {
+            store.commit("setUserId", user.id);
+        }
         await store.dispatch("fetchQuestions");
-        router.push("/questions");
+        router.replace("/questions");
     }
 
     // fetch the category data from the API when the component is mounted
@@ -81,6 +88,7 @@
         border-radius: 8px;
         padding: 30px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 5px 6px rgba(0,0,0,0.23);
+        width: 40%;
     }
     .startInput {
         width: 100%;
@@ -125,6 +133,7 @@
         height: 25px;
         margin: 10px;
         padding-left: 5px;
+        font-family: sans-serif;
     }
     .option:focus {
         outline: none;
