@@ -65,7 +65,6 @@ const onResetClick = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0077b6;
 }
 .resultsContainer {
   display: flex;
@@ -87,6 +86,7 @@ const onResetClick = () => {
   margin-bottom: 20px;
   border: 1px dotted #262626;
   padding: 10px;
+  width: 100%;
 }
 .question {
   margin-bottom: 10px;

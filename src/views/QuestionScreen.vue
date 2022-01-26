@@ -14,6 +14,5 @@ import Question from "../components/Question.vue";
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #0077b6;
 }
 </style>
