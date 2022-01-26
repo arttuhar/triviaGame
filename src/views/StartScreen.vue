@@ -91,7 +91,6 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #0077b6;
 }
 .startInputs {
   display: flex;

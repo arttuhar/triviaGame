@@ -16,5 +16,9 @@
         font-family: 'Roboto Condensed', sans serif;
         font-weight: 300;
     }
+    
+    html, body {
+        background-color: #0077b6;
+    }
 
 </style>
