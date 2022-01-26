@@ -6,7 +6,7 @@
 
 [Component Tree Picture](docs/component_tree.png)
 
-## Table of contents
+## Table of Contents
 
 - [General Information](#general-information)
 
@@ -43,13 +43,13 @@ The project is implemented using the following technologies:
 
 **NOTE:** You will need _node_ and _npm_ installed on your machine
 
-1) Clone this repository:
+1) Clone the project repository:
 
 ```sh
 git clone https://github.com/arttuhar/triviaGame.git
 ```
 
-2) Install dependencies while inside the directory:
+2) Install the dependencies while inside the project directory:
 
 ```sh
 npm install
