@@ -1,5 +1,6 @@
 import { BASE_URL, API_KEY } from ".";
 
+// fetch users from the app specific API
 export async function apiFetchUsers() {
   try {
     const response = await fetch(`${BASE_URL}`);
@@ -14,6 +15,7 @@ export async function apiFetchUsers() {
   }
 }
 
+// add new user to the API using a POST request, API automatically creates and returns an id
 export async function apiAddNewUser(username) {
   try {
     const config = {
@@ -40,6 +42,7 @@ export async function apiAddNewUser(username) {
   }
 }
 
+// updates the users highScore using a PATCH request
 export async function apiUpdateUserScore(userId, score) {
   try {
     const config = {
@@ -65,24 +68,24 @@ export async function apiUpdateUserScore(userId, score) {
   }
 }
 
-// for testing purposes
+// deletes user from the API, only for testing purposes if test users need to be removed
 export async function apiDeleteUser(userId) {
-    try {
-        const config = {
-            method: "DELETE",
-            headers: {
-              "X-API-Key": API_KEY
-            }
-          };
-  
-      const response = await fetch(`${BASE_URL}/${userId}`, config);
-  
-      if (!response.ok) {
-        throw new Error("Could not delete user.");
-      }
-      const data = await response.json();
-      return [null, data];
-    } catch (e) {
-      return [e.message, []];
+  try {
+    const config = {
+      method: "DELETE",
+      headers: {
+        "X-API-Key": API_KEY,
+      },
+    };
+
+    const response = await fetch(`${BASE_URL}/${userId}`, config);
+
+    if (!response.ok) {
+      throw new Error("Could not delete user.");
     }
+    const data = await response.json();
+    return [null, data];
+  } catch (e) {
+    return [e.message, []];
   }
+}
