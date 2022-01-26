@@ -1,64 +1,70 @@
-# triviaGame
+# Trivia Game
 
-[Live demo](https://at-trivia-game.herokuapp.com/) hosted on _Heroku_.
+[Live Demo](https://at-trivia-game.herokuapp.com/) (Hosted on _Heroku_)
 
-[REST API](https://at-assignment-api.herokuapp.com/trivia) hosted on _Heroku_.
+[REST API](https://at-assignment-api.herokuapp.com/trivia) (Hosted on _Heroku_)
+
+[Component Tree Picture](docs/component_tree.png)
 
 ## Table of contents
 
--[General information](#general-information)
+- [General Information](#general-information)
 
--[Technologies](#technologies)
+- [Technologies](#technologies)
 
--[Installation and usage](#installation-and-usage)
+- [Installation and Usage](#installation-and-usage)
 
--[Maintainers](#maintainers)
+- [Contributors](#contributors)
 
-## General information
+## General Information
 
-**Start screen**
-Application starts in Start screen. This view contains text input for player's name and options menu. From options menu, player can select difficulty, amount and category of questions. If player doesn't change those options, game will start with default values. Default values are currently set to 5 questions from all categories and all difficulties. Upon clicking Start button, app checks if entered username already exists in API database and returns id and current high score. If entered username doesn't exist in API database, new user is created along with unique id and default high score which is set to 0. Also clicking Start button will start actual game.
+**Start Screen**
 
-**Question screen**
-Question screen is actual game. This view displays one question at time and answer options for it. By clicking answer option, next question is shown. Depending if user has clicked correct answer, 10 points is added to user's score. Upon answering the last question, next view is shown automatically.
+The application starts on the Start Screen. This view contains a text input field where the player can enter their chosen username. There's also an options menu from where the player can select the difficulty, the amount and the category of their desired trivia questions. If the player doesn't change these options, the game will use default values. The default values are currently set to 5 questions from all categories and all difficulties. The data is fetched from [a free API](https://opentdb.com/api_config.php). Upon clicking the Start Button, the application checks whether the entered username already exists in the proprietary REST API and updates the application state accordingly with the correct values for user id and high score. If the entered username doesn't exist in the API, a new user is created using a unique id and a high score of 0. Clicking the Start button will start the game. No authentication is required and playing with an existing username will just update the record for that user if necessary.
 
-**Results screen**
-Result screen is shown after game is finished. In this view, player can view score and summary of questions. If score is higher than former high score, score will be updated to API database. In summary, app displays every question, and correct answer and player's answer below it. Correct answer is highlighted with green color. Restart and Reset buttons can be found below summary. Upon clicking restart, game starts again with same options. And upon clicking Reset, app takes player back to Start screen and resets former options and values.
+**Question Screen**
+
+The Question Screen contains the actual game view. This view displays one trivia question at time and the answer options related to it. By clicking an answer, the next question is displayed. A correct answer is worth 10 points which will be added to the user's score. Upon answering the last question, the next view is shown automatically.
+
+**Results Screen**
+
+The Result Screen is shown after a game is finished. In this view, the total score and a summary of the questions and answers will be displayed. If score was higher than the former high score for that username,  it will be updated to the REST API. In the summary section, each individual question can be inspected again along with it's correct answer and the user's answer. The correct answer is highlighted in green. The Restart and Reset buttons can be found below the summary. Upon clicking Restart, the game starts again using the same options as before. Clicking Reset will return the user to the Start Screen and reset the application state.
 
 ## Technologies
 
-Project is implemented with:
+The project is implemented using the following technologies:
 
 - Vue
 - Javascript
 - Vuex
 - vue-router
 
-## Installation and usage
+## Installation and Usage
 
 **NOTE:** You will need _node_ and _npm_ installed on your machine
 
-Clone down this repository:
+1) Clone this repository:
 
 ```sh
 git clone https://github.com/arttuhar/triviaGame.git
 ```
 
-Install dependencies:
+2) Install dependencies while inside the directory:
 
 ```sh
 npm install
 ```
 
-Start development server:
+3) Start the development server:
 
 ```sh
 npm run dev
 ```
 
-After starting the development server, you can visit app by using `localhost:3000` address on your browser.
+After starting the development server, you can access the application by navigating to `localhost:3000` on your browser.
 
-## Maintainers
+## Contributors
 
 [Arttu Hartikainen (@arttuhar)](https://github.com/arttuhar)
+
 [Timo Järvenpää (@TimoJarvenpaa)](https://github.com/TimoJarvenpaa)
