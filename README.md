@@ -4,7 +4,7 @@
 
 [REST API](https://at-assignment-api.herokuapp.com/trivia) (Hosted on _Heroku_)
 
-[Component Tree Picture](docs/component_tree.png)
+[Component Tree Image](docs/component_tree.png)
 
 ## Table of Contents
 
