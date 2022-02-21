@@ -1,5 +1,7 @@
 # Trivia Game
 
+![GitHub repo size](https://img.shields.io/github/repo-size/arttuhar/triviaGame)
+
 [Live Demo](https://at-trivia-game.herokuapp.com/) (Hosted on _Heroku_)
 
 [REST API](https://at-assignment-api.herokuapp.com/trivia) (Hosted on _Heroku_)
